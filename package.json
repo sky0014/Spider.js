@@ -1,0 +1,22 @@
+{
+  "name": "Spider.js",
+  "version": "1.0.0",
+  "description": "A simple node spider",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "set DEBUG=*,-babel && npm run build && node dist/index.js",
+    "build": "babel src -d dist",
+    "release": "webpack --progress --profile --colors"
+  },
+  "author": "sky0014",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0"
+  },
+  "dependencies": {
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4"
+  }
+}
