@@ -55,7 +55,7 @@ exports.sleep = _util.sleep;
   }
  */
 
-function spider(list, callback, options) {
+function spider(list, callback, options = {}) {
   if (typeof list === "string") list = [list];
   let {
     spiderDelay = 0, //get delay (ms)
