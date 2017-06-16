@@ -1,8 +1,6 @@
 import rp from "request-promise-native";
 import createDebug from "debug";
 
-import { sleep } from "./util";
-
 const debug = createDebug("spider.js");
 
 const USER_AGENTS = {
@@ -23,7 +21,11 @@ function getHomeUrl(url) {
   }
 }
 
-export { sleep };
+export function sleep(time) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, time);
+  });
+}
 
 /**
  * 

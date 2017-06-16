@@ -3,10 +3,10 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.sleep = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+exports.sleep = sleep;
 exports.default = spider;
 
 var _requestPromiseNative = require("request-promise-native");
@@ -16,8 +16,6 @@ var _requestPromiseNative2 = _interopRequireDefault(_requestPromiseNative);
 var _debug = require("debug");
 
 var _debug2 = _interopRequireDefault(_debug);
-
-var _util = require("./util");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,7 +37,11 @@ function getHomeUrl(url) {
   }
 }
 
-exports.sleep = _util.sleep;
+function sleep(time) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, time);
+  });
+}
 
 /**
  * 
@@ -54,7 +56,6 @@ exports.sleep = _util.sleep;
     ...rpOptions //other request options, see https://www.npmjs.com/package/request-promise
   }
  */
-
 function spider(list, callback, options = {}) {
   if (typeof list === "string") list = [list];
   let {
@@ -90,7 +91,7 @@ function spider(list, callback, options = {}) {
       } catch (e) {
         debug(`load ${url} failed ${e}`);
       }
-      if (spiderDelay > 0) await (0, _util.sleep)(spiderDelay);
+      if (spiderDelay > 0) await sleep(spiderDelay);
       next();
     } else {
       debug("all done!");
