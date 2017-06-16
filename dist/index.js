@@ -44,10 +44,12 @@ function sleep(time) {
 }
 
 /**
+ * Web Spider
  * 
- * @param {Array|string} list page urls
- * @param {function} callback handle callback, (html,url)=>next url
- * @param {object} options 
+ * @param {Array|string} list - page urls
+ * @param {function} callback - handle callback, (html,url)=>next url
+ * @param {object}   options  - advanced options 
+ * <pre>
  * {
     spiderDelay = 0, //get delay (ms)
     spiderBrowserSim = true, //simulate a browser
@@ -55,15 +57,17 @@ function sleep(time) {
     spiderComplete, //complete callback
     ...rpOptions //other request options, see https://www.npmjs.com/package/request-promise
   }
+  </pre>
  */
-function spider(list, callback, options = {}) {
-  if (typeof list === "string") list = [list];
+function spider(list, callback, _ref) {
   let {
     spiderDelay = 0, //get delay (ms)
     spiderBrowserSim = true, //simulate a browser
     spiderBrowserSimType = "pc", //simulate browser type, available now : pc, android, iphone, ipad
-    spiderComplete } = options,
-      rpOptions = _objectWithoutProperties(options, ["spiderDelay", "spiderBrowserSim", "spiderBrowserSimType", "spiderComplete"]);
+    spiderComplete } = _ref,
+      rpOptions = _objectWithoutProperties(_ref, ["spiderDelay", "spiderBrowserSim", "spiderBrowserSimType", "spiderComplete"]);
+
+  if (typeof list === "string") list = [list];
   if (!USER_AGENTS[spiderBrowserSimType]) {
     debug(`spiderBrowserSimType must be one of pc, android, iphone, ipad, wrong type ${spiderBrowserSimType}, change back to "pc"`);
     spiderBrowserSimType = "pc";

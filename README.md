@@ -11,10 +11,12 @@ npm install a-spider --save
 * Definition
 ```js
 /**
+ * Web Spider
  * 
- * @param {Array|string} list page urls
- * @param {function} callback handle callback, (html,url)=>next url
- * @param {object} options 
+ * @param {Array|string} list - page urls
+ * @param {function} callback - handle callback, (html,url)=>next url
+ * @param {object}   options  - advanced options 
+ * <pre>
  * {
     spiderDelay = 0, //get delay (ms)
     spiderBrowserSim = true, //simulate a browser
@@ -22,8 +24,19 @@ npm install a-spider --save
     spiderComplete, //complete callback
     ...rpOptions //other request options, see https://www.npmjs.com/package/request-promise
   }
+  </pre>
  */
-export default function spider(list, callback, options) 
+export default function spider(
+  list,
+  callback,
+  {
+    spiderDelay = 0, //get delay (ms)
+    spiderBrowserSim = true, //simulate a browser
+    spiderBrowserSimType = "pc", //simulate browser type, available now : pc, android, iphone, ipad
+    spiderComplete, //complete callback
+    ...rpOptions //other request options, see https://www.npmjs.com/package/request-promise
+  }
+) 
 ```
 
 * Example

@@ -28,10 +28,12 @@ export function sleep(time) {
 }
 
 /**
+ * Web Spider
  * 
- * @param {Array|string} list page urls
- * @param {function} callback handle callback, (html,url)=>next url
- * @param {object} options 
+ * @param {Array|string} list - page urls
+ * @param {function} callback - handle callback, (html,url)=>next url
+ * @param {object}   options  - advanced options 
+ * <pre>
  * {
     spiderDelay = 0, //get delay (ms)
     spiderBrowserSim = true, //simulate a browser
@@ -39,16 +41,20 @@ export function sleep(time) {
     spiderComplete, //complete callback
     ...rpOptions //other request options, see https://www.npmjs.com/package/request-promise
   }
+  </pre>
  */
-export default function spider(list, callback, options = {}) {
-  if (typeof list === "string") list = [list];
-  let {
+export default function spider(
+  list,
+  callback,
+  {
     spiderDelay = 0, //get delay (ms)
     spiderBrowserSim = true, //simulate a browser
     spiderBrowserSimType = "pc", //simulate browser type, available now : pc, android, iphone, ipad
     spiderComplete, //complete callback
     ...rpOptions //other request options, see https://www.npmjs.com/package/request-promise
-  } = options;
+  }
+) {
+  if (typeof list === "string") list = [list];
   if (!USER_AGENTS[spiderBrowserSimType]) {
     debug(
       `spiderBrowserSimType must be one of pc, android, iphone, ipad, wrong type ${spiderBrowserSimType}, change back to "pc"`
