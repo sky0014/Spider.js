@@ -1,11 +1,12 @@
 {
-  "name": "spider.js",
-  "version": "1.0.0",
+  "name": "a-spider",
+  "version": "1.0.2",
   "description": "A simple node spider",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "set DEBUG=*,-babel && npm run build && node dist/index.js",
-    "build": "babel src -d dist"
+    "build": "babel src -d dist",
+    "pub": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
