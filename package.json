@@ -1,14 +1,26 @@
 {
-  "name": "Spider.js",
+  "name": "spider.js",
   "version": "1.0.0",
   "description": "A simple node spider",
   "main": "src/index.js",
   "scripts": {
     "start": "set DEBUG=*,-babel && npm run build && node dist/index.js",
-    "build": "babel src -d dist",
-    "release": "webpack --progress --profile --colors"
+    "build": "babel src -d dist"
   },
-  "author": "sky0014",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sky0014/Spider.js.git"
+  },
+  "keywords": [
+    "node",
+    "spider",
+    "crawler"
+  ],
+  "author": "sky0014 <sky-wang@qq.com>",
+  "bugs": {
+    "url": "https://github.com/sky0014/Spider.js/issues"
+  },
+  "homepage": "https://github.com/sky0014/Spider.js/#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
@@ -16,6 +28,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0"
   },
   "dependencies": {
+    "debug": "^2.6.8",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4"
   }
