@@ -38,7 +38,7 @@ export { sleep };
     ...rpOptions //other request options, see https://www.npmjs.com/package/request-promise
   }
  */
-export default function spider(list, callback, options) {
+export default function spider(list, callback, options = {}) {
   if (typeof list === "string") list = [list];
   let {
     spiderDelay = 0, //get delay (ms)
