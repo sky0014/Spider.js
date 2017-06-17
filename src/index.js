@@ -80,7 +80,7 @@ export default function spider(
           uri: url,
           ..._rpOptions
         });
-        let newurl = callback(result, url);
+        let newurl = await callback(result, url);
         if (newurl) list.push(newurl);
       } catch (e) {
         debug(`load ${url} failed ${e}`);
