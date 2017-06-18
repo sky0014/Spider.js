@@ -55,6 +55,7 @@ function sleep(time) {
     spiderBrowserSim = true, //simulate a browser
     spiderBrowserSimType = "pc", //simulate browser type, available now : pc, android, iphone, ipad
     spiderComplete, //complete callback
+    spiderConcurrency = 1, //max concurrency
     ...rpOptions //other request options, see https://www.npmjs.com/package/request-promise
   }
   </pre>
@@ -64,8 +65,9 @@ function spider(list, callback, _ref) {
     spiderDelay = 0, //get delay (ms)
     spiderBrowserSim = true, //simulate a browser
     spiderBrowserSimType = "pc", //simulate browser type, available now : pc, android, iphone, ipad
-    spiderComplete } = _ref,
-      rpOptions = _objectWithoutProperties(_ref, ["spiderDelay", "spiderBrowserSim", "spiderBrowserSimType", "spiderComplete"]);
+    spiderComplete, //complete callback
+    spiderConcurrency = 1 } = _ref,
+      rpOptions = _objectWithoutProperties(_ref, ["spiderDelay", "spiderBrowserSim", "spiderBrowserSimType", "spiderComplete", "spiderConcurrency"]);
 
   if (typeof list === "string") list = [list];
   if (!USER_AGENTS[spiderBrowserSimType]) {
@@ -73,10 +75,12 @@ function spider(list, callback, _ref) {
     spiderBrowserSimType = "pc";
   }
 
+  let running = 0;
   const next = async () => {
-    if (list.length > 0) {
+    if (list.length > 0 && running < spiderConcurrency) {
       let url = list.shift();
       debug(`load ${url}`);
+      running++;
       //添加headers模拟浏览器，防止被屏蔽
       let _rpOptions = _extends({}, rpOptions);
       if (spiderBrowserSim) {
@@ -86,6 +90,7 @@ function spider(list, callback, _ref) {
         };
         _rpOptions.headers = _extends({}, headers, rpOptions.headers);
       }
+      next();
       try {
         let result = await (0, _requestPromiseNative2.default)(_extends({
           uri: url
@@ -95,11 +100,15 @@ function spider(list, callback, _ref) {
       } catch (e) {
         debug(`load ${url} failed ${e}`);
       }
-      if (spiderDelay > 0) await sleep(spiderDelay);
-      next();
-    } else {
-      debug("all done!");
-      if (spiderComplete) spiderComplete();
+      running--;
+      if (running === 0 && list.length === 0) {
+        //complete
+        debug("all done!");
+        if (spiderComplete) spiderComplete();
+      } else {
+        if (spiderDelay > 0) await sleep(spiderDelay);
+        next();
+      }
     }
   };
 

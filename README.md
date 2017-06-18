@@ -22,6 +22,7 @@ npm install a-spider --save
     spiderBrowserSim = true, //simulate a browser
     spiderBrowserSimType = "pc", //simulate browser type, available now : pc, android, iphone, ipad
     spiderComplete, //complete callback
+    spiderConcurrency = 1, //max concurrency
     ...rpOptions //other request options, see https://www.npmjs.com/package/request-promise
   }
   </pre>
